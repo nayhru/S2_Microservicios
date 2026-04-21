@@ -1,7 +1,7 @@
-package com.sumativa.s1_maria_ovalle.ordenes.controller;
+package com.sumativa.ms_ordenes.ordenes.controller;
 
-import com.sumativa.s1_maria_ovalle.ordenes.model.OrdenCompra;
-import com.sumativa.s1_maria_ovalle.ordenes.service.OrdenCompraService;
+import com.sumativa.ms_ordenes.ordenes.model.OrdenCompra;
+import com.sumativa.ms_ordenes.ordenes.service.OrdenCompraService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

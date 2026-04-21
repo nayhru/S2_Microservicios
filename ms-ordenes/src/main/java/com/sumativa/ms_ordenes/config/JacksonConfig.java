@@ -1,4 +1,4 @@
-package com.sumativa.s1_maria_ovalle.config;
+package com.sumativa.ms_ordenes.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

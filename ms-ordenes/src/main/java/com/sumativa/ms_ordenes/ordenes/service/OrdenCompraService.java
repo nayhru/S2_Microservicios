@@ -1,7 +1,7 @@
-package com.sumativa.s1_maria_ovalle.ordenes.service;
+package com.sumativa.ms_ordenes.ordenes.service;
 
-import com.sumativa.s1_maria_ovalle.ordenes.model.OrdenCompra;
-import com.sumativa.s1_maria_ovalle.ordenes.repository.OrdenCompraRepository;
+import com.sumativa.ms_ordenes.ordenes.model.OrdenCompra;
+import com.sumativa.ms_ordenes.ordenes.repository.OrdenCompraRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

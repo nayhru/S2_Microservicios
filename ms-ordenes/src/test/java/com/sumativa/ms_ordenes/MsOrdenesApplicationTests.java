@@ -1,10 +1,10 @@
-package com.sumativa.s1_maria_ovalle;
+package com.sumativa.ms_ordenes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class S1MariaOvalleApplicationTests {
+class MsOrdenesApplicationTests {
 
 	@Test
 	void contextLoads() {

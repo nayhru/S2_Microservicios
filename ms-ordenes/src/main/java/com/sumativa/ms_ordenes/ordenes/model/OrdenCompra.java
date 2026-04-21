@@ -1,4 +1,4 @@
-package com.sumativa.s1_maria_ovalle.ordenes.model;
+package com.sumativa.ms_ordenes.ordenes.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

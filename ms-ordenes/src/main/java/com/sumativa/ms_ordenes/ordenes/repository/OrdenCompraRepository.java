@@ -1,6 +1,6 @@
-package com.sumativa.s1_maria_ovalle.ordenes.repository;
+package com.sumativa.ms_ordenes.ordenes.repository;
 
-import com.sumativa.s1_maria_ovalle.ordenes.model.OrdenCompra;
+import com.sumativa.ms_ordenes.ordenes.model.OrdenCompra;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
