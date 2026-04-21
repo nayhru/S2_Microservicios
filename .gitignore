@@ -1,0 +1,26 @@
+# Maven build output
+target/
+*.class
+*.jar
+*.war
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.suo
+*.user
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentos que no son código
+Documentos sumativa 1/
+documentos sumativa 2/
+Documentacion Sumativa 1.docx
+*.zip
+*.rar

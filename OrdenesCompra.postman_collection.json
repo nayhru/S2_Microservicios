@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "3269bc1d-865e-4021-8464-dd45b7f0a10f",
+		"name": "OrdenesCompra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "53623205"
+	},
+	"item": [
+		{
+			"name": "ListaOrdenes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ordenes",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "ordenes"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarOrdenID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ordenes/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "ordenes", "1"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EstadoOrden",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ordenes/1/estado",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "ordenes", "1", "estado"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CrearOrden",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cliente\": \"Valentina Muñoz\",\n  \"mascota\": \"Rocky\",\n  \"tipoMascota\": \"Perro\",\n  \"productos\": [\"Shampoo antipulgas\", \"Cepillo dental canino\"],\n  \"total\": 15900\n}",
+					"options": {
+						"raw": { "language": "json" }
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ordenes",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "ordenes"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActualizarOrden",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"estado\": \"EN_PROCESO\"\n}",
+					"options": {
+						"raw": { "language": "json" }
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ordenes/1/estado",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "ordenes", "1", "estado"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EliminarOrden",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ordenes/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "ordenes", "1"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validacion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cliente\": \"\",\n  \"mascota\": \"\",\n  \"productos\": [],\n  \"total\": -100\n}",
+					"options": {
+						"raw": { "language": "json" }
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ordenes",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "ordenes"]
+				}
+			},
+			"response": []
+		}
+	]
+}

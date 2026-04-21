@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "d119d63d-3081-4292-84ff-2c361f6b1378",
+		"name": "CitasMedicas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "53623205"
+	},
+	"item": [
+		{
+			"name": "TodasLasCitas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/citas",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "citas"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CitasPorID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/citas/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "citas", "1"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DisponibilidadFechas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/citas/disponibilidad?fecha=2026-04-21",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "citas", "disponibilidad"],
+					"query": [
+						{ "key": "fecha", "value": "2026-04-21" }
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DisponibilidadPorVet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/citas/disponibilidad?fecha=2026-04-21&veterinario=Dr. Rodríguez",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "citas", "disponibilidad"],
+					"query": [
+						{ "key": "fecha", "value": "2026-04-21" },
+						{ "key": "veterinario", "value": "Dr. Rodríguez" }
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProgramarCita",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"paciente\": \"Roberto Sánchez\",\n  \"mascota\": \"Pelusa\",\n  \"tipoMascota\": \"Gato\",\n  \"veterinario\": \"Dra. Martínez\",\n  \"fecha\": \"2026-04-28\",\n  \"hora\": \"10:00\",\n  \"motivo\": \"Revisión general\"\n}",
+					"options": {
+						"raw": { "language": "json" }
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/citas",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "citas"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CancelarCita",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/citas/1/cancelar",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "citas", "1", "cancelar"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EliminarCita",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/citas/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "citas", "1"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidacionCita",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"paciente\": \"\",\n  \"mascota\": \"\",\n  \"veterinario\": \"\",\n  \"fecha\": \"2020-01-01\",\n  \"hora\": \"99:99\"\n}",
+					"options": {
+						"raw": { "language": "json" }
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/citas",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "citas"]
+				}
+			},
+			"response": []
+		}
+	]
+}
