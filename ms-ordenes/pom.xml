@@ -9,23 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sumativa</groupId>
-	<artifactId>s1_maria_ovalle</artifactId>
+	<artifactId>ms-ordenes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+	<name>ms-ordenes</name>
+	<description>Microservicio de Gestión de Órdenes de Compra (Cuidado de Mascotas)</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
