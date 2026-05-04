@@ -1,7 +1,8 @@
-# Maven build output
-target/
+# Maven build output (ignoramos target/ excepto el JAR ejecutable
+# que Docker Lab necesita para construir la imagen sin Maven)
+**/target/*
+!**/target/*.jar
 *.class
-*.jar
 *.war
 
 # IDE files
