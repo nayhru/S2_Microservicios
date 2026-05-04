@@ -1,0 +1,14 @@
+services:
+  ms-ordenes:
+    build: ./ms-ordenes
+    container_name: ms-ordenes
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  ms-citas:
+    build: ./ms-citas
+    container_name: ms-citas
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
