@@ -2,148 +2,170 @@
 	"info": {
 		"_postman_id": "3269bc1d-865e-4021-8464-dd45b7f0a10f",
 		"name": "OrdenesCompra",
+		"description": "Microservicio de Gestion de Ordenes de Compra (Sumativa 3). Desplegado en Render con HATEOAS y Oracle Cloud.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "53623205"
 	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://ms-ordenes.onrender.com",
+			"type": "string",
+			"description": "URL publica del microservicio en Render. Cambiar a http://localhost:8080 para pruebas locales."
+		}
+	],
 	"item": [
 		{
-			"name": "ListaOrdenes",
+			"name": "1. Listar todas las ordenes",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/ordenes",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "8080",
+					"raw": "{{baseUrl}}/api/ordenes",
+					"host": ["{{baseUrl}}"],
 					"path": ["api", "ordenes"]
-				}
+				},
+				"description": "Devuelve la coleccion completa con _embedded y bloque _links HATEOAS."
 			},
 			"response": []
 		},
 		{
-			"name": "ConsultarOrdenID",
+			"name": "2. Consultar orden por ID",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/ordenes/1",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "8080",
+					"raw": "{{baseUrl}}/api/ordenes/1",
+					"host": ["{{baseUrl}}"],
 					"path": ["api", "ordenes", "1"]
-				}
+				},
+				"description": "Devuelve una orden con sus 5 enlaces HATEOAS (self, ordenes, estado, actualizar-estado, eliminar)."
 			},
 			"response": []
 		},
 		{
-			"name": "EstadoOrden",
+			"name": "3. Consultar estado de orden",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/ordenes/1/estado",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "8080",
+					"raw": "{{baseUrl}}/api/ordenes/1/estado",
+					"host": ["{{baseUrl}}"],
 					"path": ["api", "ordenes", "1", "estado"]
-				}
+				},
+				"description": "Resumen del estado actual de una orden con enlaces a la orden completa y al listado."
 			},
 			"response": []
 		},
 		{
-			"name": "CrearOrden",
+			"name": "4. Consultar orden inexistente (404)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/ordenes/9999",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "ordenes", "9999"]
+				},
+				"description": "Caso de error: ID que no existe. Espera 404 con mensaje en JSON."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Crear orden",
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
+					{ "key": "Content-Type", "value": "application/json" }
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"cliente\": \"Valentina Muñoz\",\n  \"mascota\": \"Rocky\",\n  \"tipoMascota\": \"Perro\",\n  \"productos\": [\"Shampoo antipulgas\", \"Cepillo dental canino\"],\n  \"total\": 15900\n}",
-					"options": {
-						"raw": { "language": "json" }
-					}
+					"raw": "{\n  \"cliente\": \"Maria Ovalle\",\n  \"mascota\": \"Mochi\",\n  \"tipoMascota\": \"Gato\",\n  \"productos\": [\"Arena sanitaria 7kg\", \"Juguete laser interactivo\", \"Snacks de salmon\"],\n  \"total\": 24590\n}",
+					"options": { "raw": { "language": "json" } }
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/ordenes",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "8080",
+					"raw": "{{baseUrl}}/api/ordenes",
+					"host": ["{{baseUrl}}"],
 					"path": ["api", "ordenes"]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ActualizarOrden",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"estado\": \"EN_PROCESO\"\n}",
-					"options": {
-						"raw": { "language": "json" }
-					}
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/ordenes/1/estado",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "8080",
-					"path": ["api", "ordenes", "1", "estado"]
-				}
+				"description": "Crea una orden nueva. Espera 201 con la orden persistida y sus _links."
 			},
 			"response": []
 		},
 		{
-			"name": "EliminarOrden",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/ordenes/1",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "8080",
-					"path": ["api", "ordenes", "1"]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Validacion",
+			"name": "6. Crear orden invalida (validaciones)",
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
+					{ "key": "Content-Type", "value": "application/json" }
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n  \"cliente\": \"\",\n  \"mascota\": \"\",\n  \"productos\": [],\n  \"total\": -100\n}",
-					"options": {
-						"raw": { "language": "json" }
-					}
+					"options": { "raw": { "language": "json" } }
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/ordenes",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "8080",
+					"raw": "{{baseUrl}}/api/ordenes",
+					"host": ["{{baseUrl}}"],
 					"path": ["api", "ordenes"]
-				}
+				},
+				"description": "Caso de error: datos vacios y total negativo. Espera 400 con lista de errores."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Actualizar estado de orden",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"estado\": \"EN_PROCESO\"\n}",
+					"options": { "raw": { "language": "json" } }
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/ordenes/1/estado",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "ordenes", "1", "estado"]
+				},
+				"description": "Mueve la orden 1 a EN_PROCESO. Estados validos: PENDIENTE, EN_PROCESO, COMPLETADA, CANCELADA."
+			},
+			"response": []
+		},
+		{
+			"name": "8. Actualizar estado invalido",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"estado\": \"ENTREGADA\"\n}",
+					"options": { "raw": { "language": "json" } }
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/ordenes/1/estado",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "ordenes", "1", "estado"]
+				},
+				"description": "Caso de error: estado fuera de la lista permitida. Espera 400."
+			},
+			"response": []
+		},
+		{
+			"name": "9. Eliminar orden",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/ordenes/5",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "ordenes", "5"]
+				},
+				"description": "Elimina la orden 5. Si ya fue eliminada antes devuelve 404. Cambiar el ID si hace falta."
 			},
 			"response": []
 		}
