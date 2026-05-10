@@ -1,8 +1,9 @@
-# Maven build output (ignoramos target/ excepto el JAR ejecutable
-# que Docker Lab necesita para construir la imagen sin Maven)
-**/target/*
-!**/target/*.jar
+# Maven build output (no versionamos artefactos generados;
+# los Dockerfiles usan multi-stage build y compilan el JAR dentro
+# del contenedor a partir del codigo fuente)
+**/target/
 *.class
+*.jar
 *.war
 
 # IDE files
@@ -19,9 +20,8 @@
 .DS_Store
 Thumbs.db
 
-# Documentos que no son código
-Documentos sumativa 1/
-documentos sumativa 2/
-Documentacion Sumativa 1.docx
+# Documentos que no son código (rubricas, guias, instrucciones)
+*.docx
+*.pdf
 *.zip
 *.rar

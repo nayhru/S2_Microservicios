@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -74,6 +75,19 @@ class OrdenCompraServiceTest {
 
         assertThat(resultado.get("exito")).isEqualTo(false);
         assertThat((String) resultado.get("mensaje")).contains("Estado inválido");
+
+        verify(repository, never()).save(any(OrdenCompra.class));
+    }
+
+    @Test
+    @DisplayName("actualizarEstado a una orden inexistente retorna error con mensaje 'no encontrada'")
+    void actualizarEstado_aOrdenInexistente_retornaError() {
+        when(repository.findById(99L)).thenReturn(Optional.empty());
+
+        Map<String, Object> resultado = service.actualizarEstado(99L, "EN_PROCESO");
+
+        assertThat(resultado.get("exito")).isEqualTo(false);
+        assertThat((String) resultado.get("mensaje")).contains("no encontrada");
 
         verify(repository, never()).save(any(OrdenCompra.class));
     }

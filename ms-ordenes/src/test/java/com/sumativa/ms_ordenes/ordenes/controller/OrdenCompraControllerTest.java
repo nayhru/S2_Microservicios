@@ -12,11 +12,15 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -67,5 +71,35 @@ class OrdenCompraControllerTest {
         mockMvc.perform(get("/api/ordenes/999").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.mensaje").value("Orden con ID 999 no encontrada"));
+    }
+
+    @Test
+    @DisplayName("POST /api/ordenes con JSON válido devuelve 201 con la orden y sus _links")
+    void crearOrden_conJsonValido_retorna201ConLinks() throws Exception {
+        Map<String, Object> servicioResult = new HashMap<>();
+        servicioResult.put("exito", true);
+        servicioResult.put("mensaje", "Orden creada exitosamente");
+        servicioResult.put("orden", orden);
+
+        when(service.crearOrden(any(OrdenCompra.class))).thenReturn(servicioResult);
+
+        String jsonBody = "{"
+                + "\"cliente\":\"Maria Ovalle\","
+                + "\"mascota\":\"Mochi\","
+                + "\"tipoMascota\":\"Gato\","
+                + "\"productos\":[\"Arena sanitaria 7kg\"],"
+                + "\"total\":15990"
+                + "}";
+
+        mockMvc.perform(post("/api/ordenes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonBody))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.exito").value(true))
+                .andExpect(jsonPath("$.mensaje").value("Orden creada exitosamente"))
+                .andExpect(jsonPath("$.orden.id").value(1))
+                .andExpect(jsonPath("$.orden.links").isArray())
+                .andExpect(jsonPath("$.orden.links[0].rel").value("self"))
+                .andExpect(jsonPath("$.orden.links[0].href").exists());
     }
 }

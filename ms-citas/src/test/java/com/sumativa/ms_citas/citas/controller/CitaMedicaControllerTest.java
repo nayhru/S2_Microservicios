@@ -13,11 +13,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -72,5 +75,33 @@ class CitaMedicaControllerTest {
         mockMvc.perform(get("/api/citas/999").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.mensaje").value("Cita con ID 999 no encontrada"));
+    }
+
+    @Test
+    @DisplayName("PUT /api/citas/{id}/cancelar devuelve 200 con la cita cancelada y sus _links")
+    void cancelarCita_existente_retorna200ConLinks() throws Exception {
+        CitaMedica cancelada = new CitaMedica(
+                1L, "Ana Torres", "Bobby", "Perro",
+                "Dr. Rodríguez",
+                LocalDate.now().plusDays(1),
+                "09:00",
+                "Vacunación anual",
+                "CANCELADA",
+                LocalDateTime.now());
+
+        Map<String, Object> servicioResult = new HashMap<>();
+        servicioResult.put("exito", true);
+        servicioResult.put("mensaje", "Cita cancelada exitosamente");
+        servicioResult.put("cita", cancelada);
+
+        when(service.cancelarCita(1L)).thenReturn(servicioResult);
+
+        mockMvc.perform(put("/api/citas/1/cancelar").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.exito").value(true))
+                .andExpect(jsonPath("$.cita.estado").value("CANCELADA"))
+                .andExpect(jsonPath("$.cita.links").isArray())
+                .andExpect(jsonPath("$.cita.links[0].rel").value("self"))
+                .andExpect(jsonPath("$.cita.links[0].href").exists());
     }
 }

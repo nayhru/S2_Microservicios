@@ -85,4 +85,19 @@ class CitaMedicaServiceTest {
 
         verify(repository, never()).save(any(CitaMedica.class));
     }
+
+    @Test
+    @DisplayName("programarCita con fecha pasada falla con mensaje de validación")
+    void programarCita_conFechaPasada_falla() {
+        citaValida.setFecha(LocalDate.now().minusDays(5));
+
+        Map<String, Object> resultado = service.programarCita(citaValida);
+
+        assertThat(resultado.get("exito")).isEqualTo(false);
+        @SuppressWarnings("unchecked")
+        List<String> errores = (List<String>) resultado.get("errores");
+        assertThat(errores).anyMatch(e -> e.contains("hoy o en el futuro"));
+
+        verify(repository, never()).save(any(CitaMedica.class));
+    }
 }
